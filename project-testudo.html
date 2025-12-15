@@ -34,11 +34,9 @@
     }
 
     document.addEventListener("click", (e) => {
-      const img = e.target.closest("img.project-image, img.project-hero-image");
-      if (!img) return;
+      const img = e.target.closest("img.zoomable");
+if (!img) return;
 
-      // Only lightbox images you mark as zoomable (recommended)
-      if (!img.classList.contains("zoomable")) return;
 
       e.preventDefault();
       openLightbox(img.src, img.alt);
@@ -54,7 +52,11 @@
     });
   })();
 </script>
-
+  <!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" type="button" aria-label="Close (Esc)">×</button>
+  <img class="lightbox-img" alt="">
+</div>
 <body>
 
   <!-- SITE HEADER -->
