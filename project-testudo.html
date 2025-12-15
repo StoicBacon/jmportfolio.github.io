@@ -6,6 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
 </head>
+  <!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" type="button" aria-label="Close (Esc)">×</button>
+  <img class="lightbox-img" alt="">
+</div>
+
+<script>
+  (function () {
+    const box = document.getElementById("lightbox");
+    const boxImg = box.querySelector(".lightbox-img");
+    const closeBtn = box.querySelector(".lightbox-close");
+
+    function openLightbox(src, alt) {
+      boxImg.src = src;
+      boxImg.alt = alt || "";
+      box.classList.add("is-open");
+      box.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      box.classList.remove("is-open");
+      box.setAttribute("aria-hidden", "true");
+      boxImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.addEventListener("click", (e) => {
+      const img = e.target.closest("img.project-image, img.project-hero-image");
+      if (!img) return;
+
+      // Only lightbox images you mark as zoomable (recommended)
+      if (!img.classList.contains("zoomable")) return;
+
+      e.preventDefault();
+      openLightbox(img.src, img.alt);
+    });
+
+    closeBtn.addEventListener("click", closeLightbox);
+    box.addEventListener("click", (e) => {
+      if (e.target === box) closeLightbox(); // click outside image closes
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
+    });
+  })();
+</script>
+
 <body>
 
   <!-- SITE HEADER -->
@@ -49,7 +98,7 @@
         <div class="project-hero-media">
           <img src="assets/testudo/testudo-hero.jpg"
                alt="Testudo Defense Solution logo on a clean white background"
-               class="project-hero-image">
+               class="project-hero-image zoomable">
         </div>
       </div>
     </section>
@@ -70,7 +119,7 @@
           <figure class="project-figure">
             <img src="assets/testudo/testudo-logo-grid.jpg"
                  alt="Testudo logo grid construction with dashed guidelines"
-                 class="project-image">
+                 class="project-image zoomable">
             <figcaption>
               Grid-based construction keeps the mark precise and reproducible across formats.
             </figcaption>
@@ -79,7 +128,7 @@
           <figure class="project-figure">
             <img src="assets/testudo/testudo-logo-variations.jpg"
                  alt="Testudo logo variations on different background colors"
-                 class="project-image">
+                 class="project-image zoomable">
             <figcaption>
               Primary, reversed, and monochrome versions provide flexibility for print, digital, and product use.
             </figcaption>
@@ -111,7 +160,7 @@
   <figure class="project-figure">
     <img src="assets/testudo/testudo-color-palette.jpg"
          alt="Testudo color palette"
-         class="project-image">
+         class="project-image zoomable">
     <figcaption>Core color palette and usage.</figcaption>
   </figure>
 </div>
@@ -133,7 +182,7 @@
           <figure class="project-figure">
             <img src="assets/testudo/testudo-business-card.jpg"
                  alt="Testudo business card and stationery layout"
-                 class="project-image">
+                 class="project-image zoomable">
             <figcaption>
               Stationery system with restrained use of red for emphasis.
             </figcaption>
@@ -142,7 +191,7 @@
           <figure class="project-figure">
             <img src="assets/testudo/testudo-lanyard.jpg"
                  alt="Testudo ID badge and lanyard system"
-                 class="project-image">
+                 class="project-image zoomable">
             <figcaption>
               ID badges and lanyards extend the shield motif into everyday use.
             </figcaption>
@@ -151,7 +200,7 @@
           <figure class="project-figure">
             <img src="assets/testudo/testudo-container.jpg"
                  alt="Testudo logo applied to large exterior signage and shipping containers"
-                 class="project-image">
+                 class="project-image zoomable">
             <figcaption>
               Large-scale trasnport containers demonstrate how the mark holds up at any surface.
             </figcaption>
