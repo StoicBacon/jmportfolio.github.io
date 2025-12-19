@@ -1,3 +1,6 @@
+body { outline: 8px solid lime !important; }
+
+
 /* ==========================
    TITAN-SLAYER BASE (GLOBAL)
    ========================== */
@@ -404,4 +407,36 @@ img, video{
   .site-nav a{ padding:10px 8px; }
   .project-gallery--two,
   .project-gallery--three{ grid-template-columns: 1fr; }
+}
+/* ==========================
+   NUCLEAR ANTI-TITAN CLAMP
+   (wins even without classes)
+   ========================== */
+
+/* Clamp ALL media on project pages */
+.project-page img,
+.project-page video,
+.project-page iframe {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 1100px !important;
+  max-height: 70vh !important;      /* stops skyscraper images */
+  object-fit: contain !important;    /* shows whole image */
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+/* Clamp hero media harder (so it never dominates) */
+.project-hero-media img,
+.project-hero-media video {
+  max-width: 520px !important;
+  max-height: 420px !important;
+}
+
+/* Keep index thumbnails cropped properly */
+.project-thumb img,
+.project-thumb video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
