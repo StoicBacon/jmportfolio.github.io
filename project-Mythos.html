@@ -116,46 +116,53 @@
 
   </main>
 
-  <script>
-    (function () {
-      const box = document.getElementById("lightbox");
-      const boxImg = box.querySelector(".lightbox-img");
-      const closeBtn = box.querySelector(".lightbox-close");
+  
+   <script>
+(function () {
+  const box = document.getElementById("lightbox");
+  if (!box) return;
 
-      function openLightbox(src, alt) {
-        boxImg.src = src;
-        boxImg.alt = alt || "";
-        box.classList.add("is-open");
-        box.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-      }
+  const boxImg = box.querySelector(".lightbox-img");
+  const closeBtn = box.querySelector(".lightbox-close");
 
-      function closeLightbox() {
-        box.classList.remove("is-open");
-        box.setAttribute("aria-hidden", "true");
-        boxImg.src = "";
-        document.body.style.overflow = "";
-      }
+  function openLightbox(src, alt) {
+    boxImg.src = src;
+    boxImg.alt = alt || "";
+    box.classList.add("is-open");
+    box.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
 
-      document.addEventListener("click", (e) => {
-        const img = e.target.closest("img");
-        if (!img) return;
-        if (!img.classList.contains("zoomable")) return;
+  function closeLightbox() {
+    box.classList.remove("is-open");
+    box.setAttribute("aria-hidden", "true");
+    boxImg.src = "";
+    boxImg.alt = "";
+    document.body.style.overflow = "";
+  }
 
-        e.preventDefault();
-        openLightbox(img.src, img.alt);
-      });
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest("img.zoomable");
+    if (!img) return;
+    e.preventDefault();
 
-      closeBtn.addEventListener("click", closeLightbox);
-      box.addEventListener("click", (e) => {
-        if (e.target === box) closeLightbox();
-      });
+    // Use the resolved URL so GitHub Pages behaves
+    openLightbox(img.src, img.alt);
+  });
 
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeLightbox();
-      });
-    })();
-  </script>
+  closeBtn.addEventListener("click", closeLightbox);
+
+  // Click backdrop to close (but not the image itself)
+  box.addEventListener("click", (e) => {
+    if (e.target === box) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+})();
+</script>
+
 
 </body>
 </html>
