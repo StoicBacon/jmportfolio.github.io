@@ -9,7 +9,7 @@
   --bg:#ffffff;
   --card:#ffffff;
   --radius:14px;
-  --max:1280px; /* wider, more “Adobe portfolio” feeling */
+  --max:1280px;
 }
 
 *{ box-sizing:border-box; }
@@ -24,18 +24,15 @@ body{
   line-height:1.55;
 }
 
-/* GLOBAL CLAMP */
-img, video{
-  max-width:100%;
-  height:auto;
-  display:block;
-}
-
-/* Layout container */
 .container{
   max-width:var(--max);
   margin:0 auto;
   padding:0 24px;
+}
+
+img, video{
+  max-width:100%;
+  display:block;
 }
 
 /* ==========================
@@ -58,26 +55,6 @@ img, video{
   min-height:72px;
 }
 
-/* Wordmark / logo */
-.site-logo{
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #111;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.wordmark{
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.015em;
-  color: var(--text);
-}
-
-/* Nav */
 .site-nav{
   display:flex;
   gap:1.25rem;
@@ -85,42 +62,15 @@ img, video{
 }
 
 .site-nav a{
-  position: relative;
-  font-size:0.78rem;
+  font-size:.78rem;
   letter-spacing:.12em;
   text-transform:uppercase;
-  color:#333;
   text-decoration:none;
-  padding:0.35rem 0;
-  opacity:.78;
-  background:transparent !important;
-  border-bottom:none !important;
-  transition:opacity 160ms ease;
+  opacity:.75;
+  transition:opacity .18s ease;
 }
 
-.site-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:100%;
-  height:1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 180ms ease;
-  opacity: .65;
-}
-
-.site-nav a:hover,
-.site-nav a:focus-visible{
-  opacity:1;
-}
-
-.site-nav a:hover::after,
-.site-nav a:focus-visible::after{
-  transform:scaleX(1);
-}
+.site-nav a:hover{ opacity:1; }
 
 /* ==========================
    HERO
@@ -139,23 +89,22 @@ img, video{
 
 .hero h1{
   margin:0 0 10px;
-  font-size:clamp(2.0rem, 3.2vw, 2.6rem);
-  letter-spacing:-0.02em;
+  font-size:clamp(2.2rem, 3.4vw, 2.8rem);
   line-height:1.06;
   font-weight:650;
 }
 
-.lede,
-.hero-text p{
+.lede{ 
   margin:0;
   max-width:62ch;
-  color:#555;
-  font-size:0.98rem;
+  color:#555; 
 }
 
 /* ==========================
-   SECTIONS
+   HOME – PROJECT STACK
    ========================== */
+
+.projects{ padding:18px 0 48px; }
 
 .section-title{
   margin:0 0 18px;
@@ -165,69 +114,38 @@ img, video{
   color:rgba(22,22,22,.55);
 }
 
-.projects{ padding:18px 0 48px; }
-.about, .contact{ padding:44px 0; }
-
-.text-block{
-  max-width:70ch;
-  color:var(--muted);
-}
-
-.text-block p{ margin:0 0 14px; }
-
-/* ==========================
-   HOME – STACKED PROJECTS
-   ========================== */
-
 .project-stack{
   display:flex;
   flex-direction:column;
-  gap:48px;
+  gap:60px;
   padding:24px 0;
 }
 
-/* Each project “tile” */
+/* Behance-style uniform tile shape */
 .project-feature{
   text-decoration:none;
   color:inherit;
   display:block;
-  max-width:100%;
-  margin:0 auto;
 }
 
-/* Media wrapper */
 .project-media{
   border-radius:var(--radius);
   overflow:hidden;
   border:1px solid rgba(0,0,0,.08);
-  background:#111; /* backdrop when letterboxing */
+  background:#111;
+  aspect-ratio: 4 / 3;       /* UNIFORM TILE SHAPE */
 }
 
-/* Default media behavior:
-   - Show full image (no cropping)
-   - Big, Behance-like presence
-*/
+/* Full-bleed fill for all covers (clean & intentional) */
 .project-media img,
 .project-media video{
   width:100%;
-  height:auto;
-  max-height:520px;
-  object-fit:contain;
-}
-
-/* Eldritch (video) — less “cinema screen” */
-.video-media{
-  aspect-ratio: 5 / 4; /* closer to a square-ish block */
-  background:#000;
-}
-
-.video-media video{
-  width:100%;
   height:100%;
-  object-fit:cover;   /* crop a bit so it doesn’t look like a skinny movie strip */
+  object-fit:cover;       /* controlled crop */
+  object-position:center; /* keeps crop centered */
 }
 
-/* Meta under each project */
+/* Meta / labels */
 .project-meta{
   padding:14px 4px 0;
 }
@@ -240,284 +158,4 @@ img, video{
 
 .project-meta p{
   margin:0;
-  font-size:14px;
-  color:rgba(22,22,22,.62);
-}
-
-/* ==========================
-   (Legacy) GRID – kept in case
-   ========================== */
-
-.project-grid{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap:18px;
-}
-
-/* If you ever reuse .project-card somewhere else */
-.project-card{
-  text-decoration:none;
-  color:inherit;
-  background:var(--card);
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:var(--radius);
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-
-.project-card:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
-  border-color: rgba(0,0,0,.12);
-}
-
-/* ==========================
-   PROJECT PAGES (CASE STUDIES)
-   ========================== */
-
-.project-page{
-  padding-bottom:48px;
-}
-
-/* Hero for project pages */
-.project-hero{
-  padding:44px 0 24px;
-}
-
-.project-hero-inner{
-  display:grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap:28px;
-  align-items:start;
-}
-
-.project-label{
-  margin:0 0 10px;
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(22,22,22,.55);
-}
-
-.project-title{
-  margin:0 0 12px;
-  font-size:30px;
-  letter-spacing:-.01em;
-}
-
-.project-intro{
-  margin:0 0 18px;
-  color:var(--muted);
-  max-width:65ch;
-}
-
-.project-meta-row{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap:18px;
-  margin-top:10px;
-}
-
-.project-meta-item h3{
-  margin:0 0 6px;
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(22,22,22,.55);
-}
-
-.project-meta-item p{
-  margin:0;
-  font-size:14px;
-  color:rgba(22,22,22,.8);
-}
-
-/* Project hero media on case-study pages */
-.project-hero-media{
-  max-width:520px;
-  margin-left:auto;
-}
-
-.project-hero-image{
-  width:100%;
-  height:auto;
-  max-height:420px;
-  object-fit:contain;
-  border-radius:var(--radius);
-  border:1px solid rgba(0,0,0,.08);
-  background:#fff;
-}
-
-/* Sections */
-.project-section{
-  padding:28px 0;
-}
-
-.project-section-alt{
-  background: rgba(0,0,0,.02);
-  border-top:1px solid rgba(0,0,0,.05);
-  border-bottom:1px solid rgba(0,0,0,.05);
-}
-
-.project-section-header h2{
-  margin:0 0 10px;
-  font-size:20px;
-}
-
-.project-section-header p{
-  margin:0;
-  color:var(--muted);
-  max-width:70ch;
-}
-
-/* Galleries */
-.project-gallery{
-  display:grid;
-  gap:18px;
-  margin-top:18px;
-}
-
-.project-gallery--single{ grid-template-columns:1fr; }
-.project-gallery--two{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-.project-gallery--three{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-
-.project-figure{
-  margin:0;
-}
-
-.project-image{
-  width:100%;
-  height:auto;
-  max-height:70vh;
-  object-fit:contain;
-  border-radius:var(--radius);
-  border:1px solid rgba(0,0,0,.08);
-  background:#fff;
-}
-
-.project-figure figcaption{
-  margin-top:10px;
-  font-size:12px;
-  color:rgba(22,22,22,.62);
-  line-height:1.4;
-}
-
-/* Back link/button */
-.button-link{
-  display:inline-block;
-  margin-top:8px;
-  text-decoration:none;
-  color:inherit;
-  font-size:13px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  opacity:.8;
-  border-bottom:1px solid rgba(0,0,0,.18);
-}
-
-.button-link:hover{
-  opacity:1;
-  border-bottom-color: rgba(0,0,0,.45);
-}
-
-/* ==========================
-   CONTACT / FOOTER
-   ========================== */
-
-.contact .lede{
-  margin-bottom:12px;
-}
-
-.contact-line{
-  margin:4px 0;
-}
-
-.contact-line a{
-  color:inherit;
-  text-decoration:none;
-  border-bottom:1px solid rgba(0,0,0,.18);
-}
-
-.contact-line a:hover{
-  border-bottom-color: rgba(0,0,0,.45);
-}
-
-.site-footer{
-  padding:26px 0 36px;
-  border-top:1px solid rgba(0,0,0,.06);
-}
-
-.site-footer p{
-  margin:0;
-  color:rgba(22,22,22,.55);
-  font-size:12px;
-}
-
-/* ==========================
-   RESPONSIVE
-   ========================== */
-
-@media (max-width:980px){
-  .hero h1{ font-size:38px; }
-
-  .project-hero-inner{
-    grid-template-columns:1fr;
-  }
-
-  .project-hero-media{
-    max-width:100%;
-    margin-left:0;
-  }
-
-  .project-hero-image{
-    max-height:460px;
-  }
-}
-
-@media (max-width:640px){
-  .container{ padding:0 18px; }
-  .hero{ padding:48px 0 28px; }
-  .hero h1{ font-size:32px; }
-
-  .site-nav{
-    gap:10px;
-  }
-
-  .site-nav a{
-    padding:10px 8px;
-  }
-
-  .video-media{
-    aspect-ratio:4 / 3; /* slightly less tall on mobile */
-  }
-
-  .project-gallery--two,
-  .project-gallery--three{
-    grid-template-columns:1fr;
-  }
-}
-
-/* ==========================
-   NUCLEAR ANTI-TITAN CLAMP
-   (for case-study pages only)
-   ========================== */
-
-.project-page img,
-.project-page video,
-.project-page iframe{
-  width:100% !important;
-  height:auto !important;
-  max-width:1100px !important;
-  max-height:70vh !important;
-  object-fit:contain !important;
-  margin:0 auto !important;
-  display:block !important;
-}
-
-.project-hero-media img,
-.project-hero-media video{
-  max-width:520px !important;
-  max-height:420px !important;
-}
+  font-size
