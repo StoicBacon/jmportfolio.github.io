@@ -644,3 +644,39 @@ img, video{
     max-height: 300px;
   }
 }
+/* ==== STACKED HOME LAYOUT OVERRIDE ==== */
+
+/* Turn the grid into a vertical stack */
+.projects .project-grid{
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* Make each card behave like a big, full-width tile */
+.projects .project-card{
+  flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Big, wide images */
+.projects .project-thumb{
+  aspect-ratio: 16 / 9;
+}
+
+.projects .project-thumb img,
+.projects .project-thumb video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Upsize the titles a bit so they feel like case studies, not thumbnails */
+.projects .project-meta h3{
+  font-size: 20px;
+}
+
+.projects .project-meta p{
+  font-size: 14px;
+}
